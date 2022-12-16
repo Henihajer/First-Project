@@ -1,35 +1,82 @@
-$('header').css({ 'border-top': '4px solid #648880','border-bottom': '4px solid #648880','float': 'left','font-size': '48px','font-weight': 100,'margin-top':0, 'text-transform': 'uppercase'})
+$('header').css({ 'border-top': '4px solid #648880','border-bottom': '4px solid #648880','float': 'left','font-size': '48px', 'text-transform': 'uppercase'})
 $( "aside" ).css({ 'background': "#67b11c",'height':30,'vertical-align':'middle', });
-$( ".baniere" ).css({ 'background': "SkyBlue",'padding-left': '34px','padding-top': '15px','margin-top':'center','text-align': 'center', 'text-transform': 'uppercase','height':'100px' ,'width':'100px','float':'right','border-bottom': '4px solid #648880','font-size': '17px'  });
+$( ".baniere" ).css({ 'background': "SkyBlue",'padding-left': '34px','text-align': 'center', 'text-transform': 'uppercase','height':'100px' ,'width':'100px','float':'right','border-bottom': '4px solid #648880','font-size': '17px'  });
 $('body').css({'background-image': 'url(img/fond.jpg','height':700})
-$('.section').css({'background': 'lightcoral','height':'600px' ,'width':'1300px','margin-top':100,'margin-left':100})
-var div1 = $('<div><label >Nom    <input type="text" id="name1" required></label></div>\
-                                 <label>Num compte <input type="text" name="numcompte" required></label>\
-	                              <label>Montant Compte<input type="number" name="montant" required></label>\
-	                              <button id="creer"> Creer </button>\
-	</div>')
-var par=$('<div > Bienvenue </div>')
-div1.css({ 'font-size': '28px', 'display': 'flex','align-content': 'center'})
-par.css({ 'font-size': '68px','padding-top': '150px','padding-left': '400px'})
-var inp1 = $('<input type=text>')
-$('.section').append(par)
+$('.section').css({'background': 'lightcoral','height':'600px' ,'width':'1300px','margin-top':40,'margin-left':100})
+$('.p1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':30})
+$('.p0').css({ 'font-size': '68px','padding-top': '150px','padding-left': '10px'})
+$('.p2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+$('.p3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+$('.p4').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+
+$('.p0').css({'visibility': 'visible'})
+$('.p1').css({'visibility': 'hidden'})
+$('.p2').css({'visibility': 'hidden'})
+$('.p3').css({'visibility': 'hidden'})
+$('.p4').css({'visibility': 'hidden'})
+
+
+
 $("#home").click(function() {
-$('.section').empty()	
-$('.section').append(par)
+
+$('.p0').css({'visibility': 'visible'})
+$('.p1').css({'visibility': 'hidden'})
+$('.p2').css({'visibility': 'hidden'})
+$('.p3').css({'visibility': 'hidden'})
+$('.p4').css({'visibility': 'hidden'})
 });
+
 $("#creation").click(function() {
-$('.section').empty()
-$('.section').append(div1)
-});
-$("#creer").click(function() {
-var n1=$('#name1').val()
-console.log(n1)
+$('.p0').css({'visibility': 'hidden'})
+$('.p1').css({'visibility': 'visible'})
+$('.p2').css({'visibility': 'hidden'})
+$('.p3').css({'visibility': 'hidden'})
+$('.p4').css({'visibility': 'hidden'})
 });
 
-function makeAccount1(initial) {
+$("#operation").click(function() {
+$('.p0').css({'visibility': 'hidden'})
+$('.p1').css({'visibility': 'hidden'})
+$('.p2').css({'visibility': 'visible'})
+$('.p3').css({'visibility': 'hidden'})
+$('.p4').css({'visibility': 'hidden'})
+});
+
+$("#virement").click(function() {
+$('.p0').css({'visibility': 'hidden'})
+$('.p1').css({'visibility': 'hidden'})
+$('.p2').css({'visibility': 'hidden'})
+$('.p3').css({'visibility': 'visible'})
+$('.p4').css({'visibility': 'hidden'})
+});
+
+$("#extrait").click(function() {
+$('.p0').css({'visibility': 'hidden'})
+$('.p1').css({'visibility': 'hidden'})
+$('.p2').css({'visibility': 'hidden'})
+$('.p3').css({'visibility': 'hidden'})
+$('.p4').css({'visibility': 'visible'})
+});
+
+
+$(('#creer')).click(function() {
+alert($('.name1').val())
+});
+
+function makeAccount1(initial,num1,name1) {
      var balance = initial;
+     var num=num1;
+     var name=name1;
     var transaction=[]
-
+    function makeAcoount(num,name,balance,date) 
+       {
+       return {
+        num: num,
+        name: name,
+        balance: balance,
+        date:date
+         };
+       }
      function makeTransaction(type, amount, 
        before,after, status,date) 
        {
@@ -88,3 +135,48 @@ function makeAccount1(initial) {
         }
      };
 }
+function each(coll, func) {
+    if (Array.isArray(coll)) {
+      for (var i = 0; i < coll.length; i++) {
+        func(coll[i], i);
+      }
+    } else {
+      for (var key in coll) {
+        func(coll[key], key);
+      }
+    }
+  }
+  
+  function map(coll, func) {
+    var acc = [];
+    if (!Array.isArray(coll)) {
+      acc = {};
+    }
+    each(coll, function (element, key) {
+      acc[key] = func(element, key);
+    });
+    return acc;
+  }
+  
+  function filter(array, predicate) {
+    var acc = [];
+    each(array, function (element, index) {
+      // notice we added the index here
+      if (predicate(element, index)) {
+        // notice we added the index here
+        acc.push(element);
+      }
+    });
+    return acc;
+  }
+  
+  function reduce(array, f, acc) {
+    if (acc === undefined) {
+      acc = array[0];
+      array = array.slice(1);
+    }
+    each(array, function (element, i) {
+      acc = f(acc, element, i);
+    });
+    return acc;
+  }
