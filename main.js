@@ -1,13 +1,19 @@
 $('header').css({ 'border-top': '4px solid #648880','border-bottom': '4px solid #648880','float': 'left','font-size': '48px', 'text-transform': 'uppercase'})
-$( "aside" ).css({ 'background': "#67b11c",'height':30,'vertical-align':'middle', });
-$( ".baniere" ).css({ 'background': "SkyBlue",'padding-left': '34px','text-align': 'center', 'text-transform': 'uppercase','height':'100px' ,'width':'100px','float':'right','border-bottom': '4px solid #648880','font-size': '17px'  });
+$( 'aside' ).css({ 'background': "SkyBlue",'height':100,'vertical-align':'middle'});
+$( '.baniere' ).css({ 'padding-left': '34px','padding-right': '74px','text-align': 'center', 'text-transform': 'uppercase','height':'1200px' ,'width':'100px','float':'right','border-bottom': '4px solid #648880','font-size': '17px'  });
+$( '.baniere1' ).css({'padding-top': '34px','background':'lightblue' , 'border-top': '4px solid grey','border-bottom': '4px solid grey','height':'80px','width':140 ,'margin-left':0});
 $('body').css({'background-image': 'url(img/fond.jpg','height':700})
-$('.section').css({'background': 'lightcoral','height':'600px' ,'width':'1300px','margin-top':40,'margin-left':100})
-$('.p1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':30})
-$('.p0').css({ 'font-size': '68px','padding-top': '150px','padding-left': '10px'})
-$('.p2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+$('.section').css({'background': '#6794E0','height':'900px' ,'width':'1300px','margin-top':40,'margin-left':100})
+$('.p1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+$('.p0').css({ 'font-size': '68px','padding-top': '10px','padding-left': '80px'})
+$('.p2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0,'padding-top': '80px'})
 $('.p3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
 $('.p4').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
+$('.r').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
+$('.r2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
+$('.r3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
+$('.r1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
+
 
 $('.p0').css({'visibility': 'visible'})
 $('.p1').css({'visibility': 'hidden'})
@@ -50,34 +56,109 @@ $('.p3').css({'visibility': 'visible'})
 $('.p4').css({'visibility': 'hidden'})
 });
 
+var lCompte=[{num:1,name: 'ahmed',balance:1000},{num:2,name: 'sonia',balance:1500},{num:3,name: 'mariem',balance:1500}]
+var l=2
+console.log(lCompte)
+
 $("#extrait").click(function() {
 $('.p0').css({'visibility': 'hidden'})
 $('.p1').css({'visibility': 'hidden'})
 $('.p2').css({'visibility': 'hidden'})
 $('.p3').css({'visibility': 'hidden'})
 $('.p4').css({'visibility': 'visible'})
+$('.r').text(affiche(lCompte))
 });
 
 
 $(('#creer')).click(function() {
-alert($('.name1').val())
+var n=($('.name1').val())
+var ncc=parseInt($('.numcompte').val())
+var m=parseInt($('.montant').val())
+var cr=createCompte(ncc,n,m)
+var j=lCompte.length++
+lCompte[j++]=cr
+console.log(lCompte)
+$('.r1').text(affiche(lCompte))
+
 });
 
-function makeAccount1(initial,num1,name1) {
+$(('#val1')).click(function() {
+
+var md=parseInt(($('.mdepose').val()))
+var ncc1=parseInt(($('.numc').val()))
+var mr=parseInt($('.mretire').val())
+for(var i=0; i<lCompte.length;i++){
+    if(lCompte[i].num===ncc1){
+        var r1=makeAt(lCompte[i].balance)
+        r1.withdraw(mr)
+        r1.deposit(md)
+        lCompte[i].balance=r1.reste()
+    }
+}
+$('.r2').text(affiche(lCompte))
+});
+
+$(('#val2')).click(function() {
+var cRe=parseInt(($('.numtc1').val()))
+var cDe=parseInt(($('.numtc2').val()))
+var mt=parseInt(($('.mt').val()))
+for(var i=0; i<lCompte.length;i++){
+     for(var j=0; j<lCompte.length;j++){
+    if(lCompte[i].num===cRe){
+        var r1=makeAt(lCompte[i].balance)
+       if(lCompte[j].num===cDe){
+        var r2=makeAt(lCompte[j].balance)
+        r1.withdraw(mt)
+        r2.deposit(mt)
+        lCompte[i].balance=r1.reste()
+        lCompte[j].balance=r2.reste()
+    }
+}}}
+$('.r3').text(affiche(lCompte))
+});
+
+$(('#val4')).click(function() {
+
+     $('.r3').text(affiche(lCompte))
+    
+
+});
+
+$(('#val1')).click(function() {
+
+var md=parseInt(($('.mdepose').val()))
+var ncc1=parseInt(($('.numc').val()))
+var mr=parseInt($('.mretire').val())
+for(var i=0; i<lCompte.length;i++){
+    if(lCompte[i].num===ncc1){
+        var r1=makeAt(lCompte[i].balance)
+        r1.withdraw(mr)
+        r1.deposit(md)
+        lCompte[i].balance=r1.reste()
+    }
+}
+$('.r2').text(affiche(lCompte))
+});
+
+function createCompte(num,name, balance) {
+  return {
+    num:num,
+    name: name,
+    balance: balance,
+  };
+}
+function affiche(compte){
+    var res=""
+    for (var i in compte){
+        res+=compte[i].name+compte[i].balance+'\n'
+    }
+    return res 
+}
+
+function makeAt(initial) {
      var balance = initial;
-     var num=num1;
-     var name=name1;
     var transaction=[]
-    function makeAcoount(num,name,balance,date) 
-       {
-       return {
-        num: num,
-        name: name,
-        balance: balance,
-        date:date
-         };
-       }
-     function makeTransaction(type, amount, 
+    function makeTransaction(type, amount, 
        before,after, status,date) 
        {
        return {
@@ -117,6 +198,9 @@ function makeAccount1(initial,num1,name1) {
              t.push(transaction[i])
          }
         return t
+     }, 
+     reste: function(){
+        return balance
      }, 
      filter: function(r){
         return filter(transaction,function(ele,key){
