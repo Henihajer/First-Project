@@ -4,15 +4,15 @@ $( '.baniere' ).css({ 'padding-left': '34px','padding-right': '74px','text-align
 $( '.baniere1' ).css({'padding-top': '34px','background':'lightblue' , 'border-top': '4px solid grey','border-bottom': '4px solid grey','height':'80px','width':140 ,'margin-left':0});
 $('body').css({'background-image': 'url(img/fond.jpg','height':700})
 $('.section').css({'background': '#6794E0','height':'900px' ,'width':'1300px','margin-top':40,'margin-left':100})
-$('.p1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
-$('.p0').css({ 'font-size': '68px','padding-top': '10px','padding-left': '80px'})
-$('.p2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0,'padding-top': '80px'})
-$('.p3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
-$('.p4').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0})
-$('.r').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
-$('.r2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
-$('.r3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
-$('.r1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0})
+$('.p1').css({ 'font-size': '28px', 'display': 'block','align-content': 'center','margin-top':0,'float':'left'})
+$('.p0').css({ 'font-size': '68px','padding-top': '10px','padding-left': '80px','float':'left'})
+$('.p2').css({ 'font-size': '28px', 'display': 'block','align-content': 'center','margin-top':0,'padding-top': '80px','float':'left'})
+$('.p3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'center','margin-top':0,'float':'left'})
+$('.p4').css({ 'font-size': '28px', 'display': 'block','align-content': 'center','margin-top':0,'float':'left'})
+$('.r').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0,'float':'right'})
+$('.r2').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0,'float':'right'})
+$('.r3').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0,'float':'right'})
+$('.r1').css({ 'font-size': '28px', 'display': 'flex','align-content': 'left','margin-top':60,'margin-left':0,'float':'right'})
 
 
 $('.p0').css({'visibility': 'visible'})
@@ -117,28 +117,7 @@ for(var i=0; i<lCompte.length;i++){
 $('.r3').text(affiche(lCompte))
 });
 
-$(('#val4')).click(function() {
 
-     $('.r3').text(affiche(lCompte))
-    
-
-});
-
-$(('#val1')).click(function() {
-
-var md=parseInt(($('.mdepose').val()))
-var ncc1=parseInt(($('.numc').val()))
-var mr=parseInt($('.mretire').val())
-for(var i=0; i<lCompte.length;i++){
-    if(lCompte[i].num===ncc1){
-        var r1=makeAt(lCompte[i].balance)
-        r1.withdraw(mr)
-        r1.deposit(md)
-        lCompte[i].balance=r1.reste()
-    }
-}
-$('.r2').text(affiche(lCompte))
-});
 
 function createCompte(num,name, balance) {
   return {
