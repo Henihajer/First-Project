@@ -57,8 +57,8 @@ $('.p4').css({'visibility': 'hidden'})
 });
 
 var lCompte=[{num:1,name: 'ahmed',balance:1000},{num:2,name: 'sonia',balance:1500},{num:3,name: 'mariem',balance:1500}]
-var l=2
-console.log(lCompte)
+
+
 
 $("#extrait").click(function() {
 $('.p0').css({'visibility': 'hidden'})
@@ -66,19 +66,25 @@ $('.p1').css({'visibility': 'hidden'})
 $('.p2').css({'visibility': 'hidden'})
 $('.p3').css({'visibility': 'hidden'})
 $('.p4').css({'visibility': 'visible'})
-$('.r').text(affiche(lCompte))
+$('.r').html(affiche(lCompte))
 });
 
 
 $(('#creer')).click(function() {
+var m=0    
 var n=($('.name1').val())
 var ncc=parseInt($('.numcompte').val())
 var m=parseInt($('.montant').val())
 var cr=createCompte(ncc,n,m)
-var j=lCompte.length++
-lCompte[j++]=cr
-console.log(lCompte)
-$('.r1').text(affiche(lCompte))
+for (var i=0;i<lCompte.length;i++){
+    if (ncc===lCompte[i].num){
+       return alert('Numéro de compte existant')
+        m=1
+    }}
+ var j=lCompte.length++
+ lCompte[j++]=cr
+ $('.r1').text(affiche(lCompte))
+   
 
 });
 
@@ -90,9 +96,13 @@ var mr=parseInt($('.mretire').val())
 for(var i=0; i<lCompte.length;i++){
     if(lCompte[i].num===ncc1){
         var r1=makeAt(lCompte[i].balance)
+        if (mr>lCompte[i].balance){
+            alert('solde insuffisant')
+        }
         r1.withdraw(mr)
         r1.deposit(md)
         lCompte[i].balance=r1.reste()
+        
     }
 }
 $('.r2').text(affiche(lCompte))
@@ -108,11 +118,16 @@ for(var i=0; i<lCompte.length;i++){
         var r1=makeAt(lCompte[i].balance)
        if(lCompte[j].num===cDe){
         var r2=makeAt(lCompte[j].balance)
+        if (lCompte[i].balance<mt ){
+           return  alert('solde insuffisant') 
+        }
+        else{
         r1.withdraw(mt)
         r2.deposit(mt)
         lCompte[i].balance=r1.reste()
         lCompte[j].balance=r2.reste()
-    }
+       
+    }}
 }}}
 $('.r3').text(affiche(lCompte))
 });
@@ -129,7 +144,7 @@ function createCompte(num,name, balance) {
 function affiche(compte){
     var res=""
     for (var i in compte){
-        res+=compte[i].name+compte[i].balance+'\n'
+        res=res+' \n'+compte[i].num+'-'+compte[i].name+'-'+compte[i].balance+ '----'+'\n'
     }
     return res 
 }
@@ -170,32 +185,11 @@ function makeAt(initial) {
           return 'Your balance is: $' + balance;
           },
 
-     transactionHistory: function(n){
-              var t=[]
-              var b=transaction.length
-         for (var i=b-n;i<b;i++){
-             t.push(transaction[i])
-         }
-        return t
-     }, 
+
      reste: function(){
         return balance
      }, 
-     filter: function(r){
-        return filter(transaction,function(ele,key){
-            return ele.type===r
-        })
-     },
-     average:function(r){
-         var res=0
-        var e= filter(transaction,function(ele,key){
-            return ele.type===r && ele.status==='approved'})
-
-        var res=reduce(e,function(result,ele){
-         return result+ele.amount
-            },0)
-       return (res/(e.length))
-        }
+ 
      };
 }
 function each(coll, func) {
